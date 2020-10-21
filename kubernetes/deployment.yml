@@ -17,11 +17,11 @@ spec:
       containers:
         - name: house
          env:                                                 ##### 컨테이너에서 사용할 환경 변수 설정
-            - name: CONTRY
+            - name: COUNTRY
               valueFrom:
                 configMapKeyRef:
                   name: house-region
-                  key: contury
+                  key: country
             - name: REGION
               valueFrom:
                 configMapKeyRef:
@@ -31,6 +31,10 @@ spec:
           - name: config
             mountPath: "/config"
             readOnly: true
+          volumes:                                                 ##### CM 볼륨 
+          - name: config
+            configMap:
+              name: rental-region  
           image: username/house:latest
           ports:
             - containerPort: 8080
